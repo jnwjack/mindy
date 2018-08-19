@@ -1,0 +1,38 @@
+.tfield {
+  width: 75%;
+}
+
+input[type="text"], textarea, select {
+  margin-bottom: 5%;
+}
+
+#main {
+  text-align: center;
+  width: 30%;
+  /*border: 1px solid blue;*/
+  margin: 0 auto;
+  margin-top: 5%;
+}
+
+#listbox {
+  width: 75%;
+  float: left;
+}
+
+#message {
+  resize: none;
+  height: 150px;
+}
+
+#recipient {
+  width: 100%;
+  text-align: center;
+  /*border: 1px solid red;*/
+  margin: 0 auto;
+  margin-left: 0%;
+  height: 30px;
+}
+
+#recipient-text {
+  float: left;
+}
