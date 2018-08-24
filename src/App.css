@@ -11,11 +11,11 @@ input[type="text"], textarea, select {
   width: 30%;
   /*border: 1px solid blue;*/
   margin: 0 auto;
-  margin-top: 5%;
+  margin-top: 10%;
 }
 
 #listbox {
-  width: 75%;
+  width: 100%;
   float: left;
 }
 

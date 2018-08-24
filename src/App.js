@@ -59,7 +59,7 @@ class ListBox extends React.Component {
     const elements = this.props.elements.map((element) => <option>{ element }</option>);
     return(
       <div>
-        <select class="custom-select" id="listbox" size={ this.props.maximum }>{ elements }</select>
+        <select class="form-control" id="listbox" size={ this.props.maximum }>{ elements }</select>
       </div>
     );
   }

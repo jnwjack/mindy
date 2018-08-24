@@ -1,0 +1,1 @@
+-ListBox: make it so only valid emails are added (no blank strings, etc.)
