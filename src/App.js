@@ -2,6 +2,7 @@ import React from 'react';
 import logo from './logo.svg';
 import './App.css';
 
+
 // props.default
 class TextField extends React.Component {
   constructor(props) {
@@ -101,6 +102,7 @@ class Box extends React.Component {
     this.handleNameChange = this.handleNameChange.bind(this);
     this.handleEmailChange = this.handleEmailChange.bind(this);
     this.handleAdd = this.handleAdd.bind(this);
+    this.handleSend = this.handleSend.bind(this);
   }
 
   handleNameChange(event) {
@@ -123,6 +125,14 @@ class Box extends React.Component {
       recipients: temp
     });
   }
+ 
+  handleSend(event) {
+      let xhr = new XMLHttpRequest();
+      let name = this.state.name;
+      xhr.open("POST", 'email.php', true);
+      
+      xhr.send("name="+name);
+  }
 
   render() {
     return(
@@ -131,6 +141,7 @@ class Box extends React.Component {
         <Recipient value={ this.state.email } onChange={ this.handleEmailChange } onAdd={ this.handleAdd }/>
         <ListBox elements={ this.state.recipients } maximum={ 7 }/>
         <TextBox />
+        <input type="button" class="btn btn-primary" value="Send" onClick={ this.handleSend }/>
       </div>
     )
   }
