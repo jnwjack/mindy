@@ -1,0 +1,5 @@
+#!/bin/bash
+#Build script for the app.
+
+sudo npm run build
+cp -a src/php/* build/
