@@ -1,1 +1,2 @@
 -ListBox: make it so only valid emails are added (no blank strings, etc.)
+-Allow user to see preview of email before it is sent.

@@ -17,6 +17,7 @@ class TextField extends React.Component {
     this.renderValue = this.renderValue.bind(this);
   }
 
+
   handleFocus() {
     this.setState({
       isEmptyAndBlurred: false
@@ -70,7 +71,7 @@ class TextBox extends React.Component {
   render() {
     return(
       <div>
-        <textarea class="form-control" id="message" />
+        <textarea class="form-control" id="message" value={ this.props.value } onChange={ this.props.onChange } />
       </div>
     );
   }
@@ -96,15 +97,23 @@ class Box extends React.Component {
     this.state = {
       name: "",
       email: "",
-      recipients: []
+      recipients: [],
+      body: ""
     };
 
+    this.handleBodyChange = this.handleBodyChange.bind(this);
     this.handleNameChange = this.handleNameChange.bind(this);
     this.handleEmailChange = this.handleEmailChange.bind(this);
     this.handleAdd = this.handleAdd.bind(this);
     this.handleSend = this.handleSend.bind(this);
   }
 
+    
+  handleBodyChange(event){
+      this.setState({
+          body: event.target.value
+      });
+  }
   handleNameChange(event) {
     this.setState({
       name: event.target.value
@@ -129,9 +138,23 @@ class Box extends React.Component {
   handleSend(event) {
       let xhr = new XMLHttpRequest();
       let name = this.state.name;
-      xhr.open("POST", 'email.php', true);
-      
-      xhr.send("name="+name);
+      let recipients = this.state.recipients;
+      let body = this.state.body;
+      xhr.open("POST", "email.php", true);
+      xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+      xhr.onreadystatechange = function(){
+          if(xhr.readyState == 4 && xhr.status==200){
+              this.setState({
+                  name: "",
+                  recipients: [],
+                  email: "",
+                  body: ""
+              });
+           this.forceUpdate();
+           alert(this.state.name);
+          }
+      };
+      xhr.send("name="+name+"&recipients="+recipients+"&body="+body);
   }
 
   render() {
@@ -140,7 +163,7 @@ class Box extends React.Component {
         <TextField onChange={ this.handleNameChange } value={ this.state.name } default="Who is sending this reminder?" />
         <Recipient value={ this.state.email } onChange={ this.handleEmailChange } onAdd={ this.handleAdd }/>
         <ListBox elements={ this.state.recipients } maximum={ 7 }/>
-        <TextBox />
+        <TextBox onChange={ this.handleBodyChange} value={ this.state.body} />
         <input type="button" class="btn btn-primary" value="Send" onClick={ this.handleSend }/>
       </div>
     )
