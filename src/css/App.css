@@ -15,8 +15,12 @@ input[type="text"], textarea, select {
 }
 
 #listbox {
-  width: 100%;
+  width: 80%;
   float: left;
+}
+
+#listbox-button{
+  float: right;
 }
 
 #message {
@@ -35,4 +39,8 @@ input[type="text"], textarea, select {
 
 #recipient-text {
   float: left;
+}
+
+#recipient-button{
+  float: right;
 }
