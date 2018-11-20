@@ -1,5 +1,6 @@
 import React from 'react';
 import logo from './logo.svg';
+import text from './image/text.png'
 import './css/App.css';
 
 
@@ -202,6 +203,7 @@ class Box extends React.Component {
   render() {
     return(
       <div id="main">
+        <img src={ text } alt="Mindy Text" id="image-text"></img>
         <TextField onChange={ this.handleNameChange } value={ this.state.name } default="Who is sending this reminder?" />
         <Recipient value={ this.state.email } onChange={ this.handleEmailChange } onAdd={ this.handleAdd }/>
         <ListBox elements={ this.state.recipients } maximum={ 7 } onDelete={ this.handleDelete }/>

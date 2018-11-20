@@ -6,16 +6,24 @@ input[type="text"], textarea, select {
   margin-bottom: 5%;
 }
 
+input[type="button"]{
+  width: 15%;
+}
+
 #main {
   text-align: center;
-  width: 30%;
-  /*border: 1px solid blue;*/
+  width: 40%;
   margin: 0 auto;
-  margin-top: 10%;
+  margin-top: 5%;
+
+  border: thick solid #ccccff;
+  border-radius: 35px;
+
+  padding: 5%;
 }
 
 #listbox {
-  width: 80%;
+  width: 75%;
   float: left;
 }
 
@@ -43,4 +51,12 @@ input[type="text"], textarea, select {
 
 #recipient-button{
   float: right;
+}
+
+#image-text{
+  /*image position is relative to its first ancestor element (global window)*/
+  position: absolute;
+
+  left: 35%;
+  top: 5%;
 }
