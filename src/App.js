@@ -1,61 +1,8 @@
 import React from 'react';
-import logo from './logo.svg';
 import text from './image/text.png'
+import {TextField, TextArea} from './TextFields.js';
 import './css/App.css';
 
-
-// props.default
-class TextField extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      isEmptyAndBlurred: true
-    };
-
-    this.handleFocus = this.handleFocus.bind(this);
-    this.handleBlur = this.handleBlur.bind(this);
-    this.renderPlaceholder = this.renderPlaceholder.bind(this);
-    this.renderValue = this.renderValue.bind(this);
-  }
-
-
-  handleFocus() {
-    this.setState({
-      isEmptyAndBlurred: false
-    });
-  }
-
-  handleBlur() {
-    if(this.props.value === "") {
-      this.setState({
-        isEmptyAndBlurred: true
-      });
-    }
-  }
-
-  renderPlaceholder() {
-    return(
-      <input type="text" class="form-control tfield" id={ this.props.id } onFocus={ this.handleFocus }
-          onBlur={ this.handleBlur } onChange={ this.props.onChange } value={ this.props.default }/>
-    );
-  }
-
-  renderValue() {
-    return(
-      <input type="text" class="form-control tfield" id={ this.props.id } onFocus={ this.handleFocus }
-          onBlur={ this.handleBlur } onChange={ this.props.onChange } value={ this.props.value }/>
-    );
-  }
-
-  render() {
-    const isEmptyAndBlurred = this.state.isEmptyAndBlurred;
-    return(
-      <div>
-        {isEmptyAndBlurred ? this.renderPlaceholder() : this.renderValue()}
-      </div>
-    );
-  }
-}
 
 class SelectField extends React.Component{
   render(){
@@ -92,7 +39,7 @@ class ListBox extends React.Component {
   }
 }
 
-class TextBox extends React.Component {
+/*class TextBox extends React.Component {
   render() {
     return(
       <div>
@@ -100,7 +47,7 @@ class TextBox extends React.Component {
       </div>
     );
   }
-}
+}*/
 
 
 class Recipient extends React.Component {
@@ -109,6 +56,26 @@ class Recipient extends React.Component {
       <div id="recipient">
         <TextField id="recipient-text" default="Recipient email" value={ this.props.value } onChange={ this.props.onChange } />
         <input type="button" class="btn btn-primary" id="recipient-button" value="Add" onClick={ this.props.onAdd } />
+      </div>
+    )
+  }
+}
+
+class Notification extends React.Component {
+  render(){
+    return(
+      <div class="alert alert-success alert-dismissible">
+        <strong>Email sent!</strong>
+      </div>
+    )
+  }
+}
+
+class Image extends React.Component {
+  render(){
+    return(
+      <div class="image">
+        <img src={ this.props.src } alt={ this.props.alt } id={ this.props.id }></img>
       </div>
     )
   }
@@ -131,6 +98,7 @@ class Box extends React.Component {
     this.handleAdd = this.handleAdd.bind(this);
     this.handleSend = this.handleSend.bind(this);
     this.handleDelete = this.handleDelete.bind(this);
+    this.reset = this.reset.bind(this);
   }
 
   handleDelete(element, event){
@@ -168,6 +136,16 @@ class Box extends React.Component {
       count: id+1
     });
   }
+
+  reset(){
+    console.log("hit");
+    this.setState({
+      email: "",
+      recipients: [],
+      body: "",
+      name: ""
+    });
+  }
  
   handleSend(event) {
       let xhr = new XMLHttpRequest();
@@ -179,13 +157,7 @@ class Box extends React.Component {
       let body = this.state.body;
       xhr.open("POST", "email.php", true);
       xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-      xhr.onreadystatechange = function(){
-          this.setState({
-            name: "",
-            recipients: [],
-            email: "",
-            body: ""
-          });
+      xhr.onreadystatechange = this.reset;
           /*if(xhr.readyState == 4 && xhr.status==200){
               this.setState({
                   name: "",
@@ -196,18 +168,17 @@ class Box extends React.Component {
            this.forceUpdate();
            alert(this.state.name);
           }*/
-      };
       xhr.send("name="+name+"&recipients="+emails+"&body="+body);
   }
 
   render() {
     return(
       <div id="main">
-        <img src={ text } alt="Mindy Text" id="image-text"></img>
+        <Image src={ text } alt="Mindy Text" id="image-text"></Image>
         <TextField onChange={ this.handleNameChange } value={ this.state.name } default="Who is sending this reminder?" />
         <Recipient value={ this.state.email } onChange={ this.handleEmailChange } onAdd={ this.handleAdd }/>
         <ListBox elements={ this.state.recipients } maximum={ 7 } onDelete={ this.handleDelete }/>
-        <TextBox onChange={ this.handleBodyChange} value={ this.state.body}/>
+        <TextArea id="message" onChange={ this.handleBodyChange } value={ this.state.body } default="Enter email body here."/>
         <input type="button" class="btn btn-primary" value="Send" onClick={ this.handleSend }/>
       </div>
     )
