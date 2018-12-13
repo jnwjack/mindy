@@ -3,3 +3,4 @@
 
 sudo npm run build
 cp -a src/php/* build/
+cp -r src/image build/image
