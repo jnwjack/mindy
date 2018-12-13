@@ -1,2 +1,2 @@
 # mindy
-![Demo](https://giphy.com/embed/OqFxeOebVfuQHA3QUJ)
+![Demo](https://media.giphy.com/media/OqFxeOebVfuQHA3QUJ/giphy.gif)
