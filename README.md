@@ -1,2 +1,2 @@
 # mindy
-![Demo](src/demo.gif)
+[[https://github.com/jnwjack/mindy/blob/master/src/image/demo.gif|alt=Demo]]
