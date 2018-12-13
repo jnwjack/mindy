@@ -1,2 +1,2 @@
 # mindy
-![Demo](https://media.giphy.com/media/OqFxeOebVfuQHA3QUJ/giphy.gif =500x500)
+<img src="https://media.giphy.com/media/OqFxeOebVfuQHA3QUJ/giphy.gif" width="48">
