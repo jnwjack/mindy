@@ -1,29 +1,25 @@
-.image{
-  margin-left: auto;
-  margin-right: auto;
-}
-
-input[type="text"], textarea, select {
-  margin-bottom: 5%;
-  width: 75%
-}
-
-input[type="button"]{
-  width: 15%;
-}
-
+/* ---------Main Window--------- */
 #main {
-  /*text-align: center;*/
   width: 40%;
 
   margin: 0 auto;
   margin-top: 5%;
-  /*margin-top: 500px;*/
 
   border: thick solid #ccccff;
   border-radius: 35px;
 
   padding: 4%;
+}
+/* ----------------------------- */
+
+/* --------Buttons/Fields------- */
+input[type="text"], textarea, select {
+  margin-bottom: 5%;
+  width: 75%;
+}
+
+input[type="button"]{
+  width: 15%;
 }
 
 #listbox {
@@ -43,7 +39,6 @@ input[type="button"]{
 #recipient {
   width: 100%;
   text-align: center;
-  /*border: 1px solid red;*/
   margin: 0 auto;
   margin-left: 0%;
   height: 30px;
@@ -55,6 +50,14 @@ input[type="button"]{
 
 #recipient-button{
   float: right;
+}
+/* ----------------------------- */
+
+
+/* ---------Image--------------- */
+.image{
+  margin-left: auto;
+  margin-right: auto;
 }
 
 #image-text{
@@ -68,4 +71,47 @@ input[type="button"]{
   left: 35%;
   top: 0px;
 }
+/* ----------------------------- */
 
+
+/* -------Notification---------- */
+.notification-enter {
+  max-height: 0;
+  overflow: hidden;
+}
+
+.notification-enter.notification-enter-active {
+  max-height: 500px;
+  transition: max-height 1s linear;
+}
+
+.notification-leave {
+  opacity: 1;
+}
+
+.notification-leave.notification-leave-active {
+  opacity: 0.01;
+  transition: opacity 1.5s ease-out;
+}
+
+.notification-block {
+  position: absolute;
+  width: 30%;
+  top: 0%;
+
+  display: table;
+  height: 50px;
+  background-color: #ccccff;
+  border-radius: 8px;
+  color: #0e0c92;
+}
+
+.notification-text {
+  display: table-cell;
+  vertical-align: middle;
+  text-align: center;
+  font-family: fantasy;
+  font-size: 20px;
+}
+
+/* ----------------------------- */

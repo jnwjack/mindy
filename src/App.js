@@ -1,9 +1,16 @@
 import React from 'react';
-import text from './image/text.png'
+
+import text from './image/text.png';
 import {TextField, TextArea} from './TextFields.js';
+import Notification from './Notification.js';
 import './css/App.css';
 
 
+/* SelectField
+
+This component is a wrapper for a <select> element
+
+*/
 class SelectField extends React.Component{
   render(){
     return(
@@ -12,6 +19,13 @@ class SelectField extends React.Component{
   }
 }
 
+
+/* ListBox
+
+This component contains a SelectField for storing user emails, as well as a button for deleting emails
+from the list.
+
+*/
 class ListBox extends React.Component {
   constructor(props){
     super(props);
@@ -39,17 +53,11 @@ class ListBox extends React.Component {
   }
 }
 
-/*class TextBox extends React.Component {
-  render() {
-    return(
-      <div>
-        <textarea class="form-control" id="message" value={ this.props.value } onChange={ this.props.onChange } />
-      </div>
-    );
-  }
-}*/
+/* Recipient
 
+This component uses a TextField and a button to add new user emails to the list of recipients.
 
+*/
 class Recipient extends React.Component {
   render() {
     return(
@@ -61,15 +69,11 @@ class Recipient extends React.Component {
   }
 }
 
-class Notification extends React.Component {
-  render(){
-    return(
-      <div class="alert alert-success alert-dismissible">
-        <strong>Email sent!</strong>
-      </div>
-    )
-  }
-}
+/* Image
+
+This component is a basic wrapper used for displaying an image.
+
+*/
 
 class Image extends React.Component {
   render(){
@@ -81,6 +85,13 @@ class Image extends React.Component {
   }
 }
 
+/* Box
+
+This component is the main container for all components (so far).
+It renders all components and maintains the state for all of the fields for the current email.
+
+*/
+
 class Box extends React.Component {
   constructor(props) {
     super(props);
@@ -89,7 +100,8 @@ class Box extends React.Component {
       email: "",
       recipients: [],
       body: "",
-      count: 0
+      count: 0,
+      notificationActive: false
     };
 
     this.handleBodyChange = this.handleBodyChange.bind(this);
@@ -99,6 +111,13 @@ class Box extends React.Component {
     this.handleSend = this.handleSend.bind(this);
     this.handleDelete = this.handleDelete.bind(this);
     this.reset = this.reset.bind(this);
+    this.notificationEnd = this.notificationEnd.bind(this);
+  }
+
+  notificationEnd(){
+    this.setState({
+      notificationActive: false
+    });
   }
 
   handleDelete(element, event){
@@ -138,12 +157,12 @@ class Box extends React.Component {
   }
 
   reset(){
-    console.log("hit");
     this.setState({
       email: "",
       recipients: [],
       body: "",
-      name: ""
+      name: "",
+      notificationActive: true
     });
   }
  
@@ -153,25 +172,17 @@ class Box extends React.Component {
 
       let recipients = this.state.recipients;
       let emails = recipients.map((element) => element.email);
-
       let body = this.state.body;
+
       xhr.open("POST", "email.php", true);
       xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
       xhr.onreadystatechange = this.reset;
-          /*if(xhr.readyState == 4 && xhr.status==200){
-              this.setState({
-                  name: "",
-                  recipients: [],
-                  email: "",
-                  body: ""
-              });
-           this.forceUpdate();
-           alert(this.state.name);
-          }*/
       xhr.send("name="+name+"&recipients="+emails+"&body="+body);
   }
 
   render() {
+    let notificationActive = this.state.notificationActive;
+
     return(
       <div id="main">
         <Image src={ text } alt="Mindy Text" id="image-text"></Image>
@@ -180,6 +191,7 @@ class Box extends React.Component {
         <ListBox elements={ this.state.recipients } maximum={ 7 } onDelete={ this.handleDelete }/>
         <TextArea id="message" onChange={ this.handleBodyChange } value={ this.state.body } default="Enter email body here."/>
         <input type="button" class="btn btn-primary" value="Send" onClick={ this.handleSend }/>
+        <Notification active={ notificationActive } callback={ this.notificationEnd }></Notification>
       </div>
     )
   }
