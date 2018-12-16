@@ -1,12 +1,32 @@
-/* ---------Main Window--------- */
-#main {
-  width: 40%;
-
-  margin: 0 auto;
-  margin-top: 5%;
-
+/* -----------Boxes------------ */
+.box-basic{
   border: thick solid #ccccff;
   border-radius: 35px;
+  float: left;
+}
+
+.box-side{
+  width: 20%;
+  margin-top: 10%;
+  padding: 2%;
+}
+
+/* with margins, border auto-collapses so we use that, not padding */
+
+#box-right{
+  margin-right: 5%;
+}
+
+#box-left{
+  margin-left: 5%;
+}
+
+#main {
+  width: 40%;
+  margin-left: 5%;
+  margin-right: 5%;
+  margin-top: 5%;
+  float: left;
 
   padding: 4%;
 }

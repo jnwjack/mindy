@@ -81,18 +81,32 @@ class Image extends React.Component {
       <div class="image">
         <img src={ this.props.src } alt={ this.props.alt } id={ this.props.id }></img>
       </div>
-    )
+    );
   }
 }
 
-/* Box
+
+/* SideBox
+
+This box lies to the right side of the page.
+
+*/
+class SideBox extends React.Component {
+  render(){
+    return(    
+      <div class="box-basic box-side" id={ this.props.tid }>
+      </div>
+    );
+  }
+}
+
+/* MainBox
 
 This component is the main container for all components (so far).
 It renders all components and maintains the state for all of the fields for the current email.
 
 */
-
-class Box extends React.Component {
+class MainBox extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -184,7 +198,7 @@ class Box extends React.Component {
     let notificationActive = this.state.notificationActive;
 
     return(
-      <div id="main">
+      <div id="main" class="box-basic">
         <Image src={ text } alt="Mindy Text" id="image-text"></Image>
         <TextField onChange={ this.handleNameChange } value={ this.state.name } default="Who is sending this reminder?" />
         <Recipient value={ this.state.email } onChange={ this.handleEmailChange } onAdd={ this.handleAdd }/>
@@ -197,4 +211,4 @@ class Box extends React.Component {
   }
 }
 
-export default Box;
+export {MainBox, SideBox};
