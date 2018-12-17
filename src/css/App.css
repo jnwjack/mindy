@@ -11,7 +11,7 @@
   padding: 2%;
 }
 
-/* with margins, border auto-collapses so we use that, not padding */
+/* with margins, border auto-collapses, so we use that, not padding */
 
 #box-right{
   margin-right: 5%;
@@ -42,6 +42,23 @@ input[type="button"]{
   width: 15%;
 }
 
+input[type="checkbox"]{
+  width: 13px;
+  height: 13px;
+  padding: 0;
+  margin:0;
+  vertical-align: bottom;
+  position: relative;
+  top: -1px;
+  *overflow: hidden;
+}
+
+label{
+  display: block;
+  padding-left: 15px;
+  text-indent: -15px;
+}
+
 #listbox {
   width: 75%;
   float: left;
@@ -70,6 +87,13 @@ input[type="button"]{
 
 #recipient-button{
   float: right;
+}
+
+.checkbox-wrapper{
+  display: flex;
+  justify-content: space-between;
+  width: 60%;
+  margin: .5rem;
 }
 /* ----------------------------- */
 

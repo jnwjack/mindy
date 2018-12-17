@@ -3,6 +3,7 @@ import React from 'react';
 import text from './image/text.png';
 import {TextField, TextArea} from './TextFields.js';
 import Notification from './Notification.js';
+import {CheckBox} from "./InputFields.js";
 import './css/App.css';
 
 
@@ -13,8 +14,10 @@ This component is a wrapper for a <select> element
 */
 class SelectField extends React.Component{
   render(){
+    const elements = this.props.elements.map((element) => <option key={ element.key }>{ element.string }</option>);
+
     return(
-      <select id={ this.props.id } class="form-control" size={ this.props.maximum } onChange={ this.props.onChange }>{ this.props.elements }</select>
+      <select id={ this.props.id } class="form-control" size={ this.props.maximum } onChange={ this.props.onChange } disabled={ this.props.disabled }>{ elements }</select>
     )
   }
 }
@@ -42,11 +45,10 @@ class ListBox extends React.Component {
   }
 
   render() {
-    const elements = this.props.elements.map((element) => <option key={ element.key }>{ element.email }</option>);
     let currentElement = this.state.selected;
     return(
       <div>
-        <SelectField id="listbox" maximum={ this.props.maximum } onChange={ this.handleSelect }elements = { elements }></SelectField>
+        <SelectField id="listbox" maximum={ this.props.maximum } onChange={ this.handleSelect }elements = { this.props.elements }></SelectField>
         <input type="button" class="btn btn-primary" id="listbox-button" value="Remove" onClick={ (e) => this.props.onDelete(currentElement, e) }></input>
       </div>
     );
@@ -92,9 +94,31 @@ This box lies to the right side of the page.
 
 */
 class SideBox extends React.Component {
+  constructor(props){
+    super(props);
+    this.state = {
+      // using 1/0 instead of true/false so we can use it to set field properties
+      repeated: 0
+    };
+
+    this.onCheck = this.onCheck.bind(this);
+  }
+
+  onCheck(event){
+    const repeated_previous = this.state.repeated;
+    this.setState({
+      repeated: !repeated_previous
+    });
+  }
+
   render(){
+    const repeated = this.state.repeated;
+    const options = [{string: "Daily", key: 0}, {string: "Weekly", key: 1}, {string: "Monthly", key: 2}];
+
     return(    
       <div class="box-basic box-side" id={ this.props.tid }>
+        <CheckBox text="Repeat?" checked={ repeated } callback={ this.onCheck }></CheckBox>
+        <SelectField disabled={ !repeated } elements={ options }></SelectField>
       </div>
     );
   }
@@ -162,7 +186,7 @@ class MainBox extends React.Component {
   handleAdd(event) {
     const temp = this.state.recipients;
     let id = this.state.count;
-    temp.push({email: this.state.email, key: id});
+    temp.push({string: this.state.email, key: id});
     this.setState({
       email: "",
       recipients: temp,
@@ -185,7 +209,7 @@ class MainBox extends React.Component {
       let name = this.state.name;
 
       let recipients = this.state.recipients;
-      let emails = recipients.map((element) => element.email);
+      let emails = recipients.map((element) => element.string);
       let body = this.state.body;
 
       xhr.open("POST", "email.php", true);
