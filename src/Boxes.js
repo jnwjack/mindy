@@ -3,7 +3,7 @@ import React from 'react';
 import text from './image/text.png';
 import {TextField, TextArea} from './TextFields.js';
 import Notification from './Notification.js';
-import {CheckBox} from "./InputFields.js";
+import {CheckBox, DateField} from "./InputFields.js";
 import './css/App.css';
 
 
@@ -101,6 +101,7 @@ class SideBox extends React.Component {
       repeated: 0
     };
 
+    
     this.onCheck = this.onCheck.bind(this);
   }
 
@@ -113,10 +114,11 @@ class SideBox extends React.Component {
 
   render(){
     const repeated = this.state.repeated;
-    const options = [{string: "Daily", key: 0}, {string: "Weekly", key: 1}, {string: "Monthly", key: 2}];
+    const options = [{string: "Daily", key: 0}, {string: "Weekly", key: 1}, {string: "Monthly", key: 2}, {string: "Specific days", key: 3}];
 
     return(    
       <div class="box-basic box-side" id={ this.props.tid }>
+        <DateField text="Send reminder on:"></DateField>
         <CheckBox text="Repeat?" checked={ repeated } callback={ this.onCheck }></CheckBox>
         <SelectField disabled={ !repeated } elements={ options }></SelectField>
       </div>

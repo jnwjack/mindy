@@ -33,7 +33,7 @@
 /* ----------------------------- */
 
 /* --------Buttons/Fields------- */
-input[type="text"], textarea, select {
+input[type="text"], textarea, select{
   margin-bottom: 5%;
   width: 75%;
 }
@@ -57,6 +57,11 @@ label{
   display: block;
   padding-left: 15px;
   text-indent: -15px;
+  color: #d7c316;
+}
+
+input[type="date"]{
+  color: black;
 }
 
 #listbox {
