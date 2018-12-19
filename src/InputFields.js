@@ -16,6 +16,11 @@ class CheckBox extends React.Component{
     }
 }
 
+/* DateField
+
+This component is a basic wrapper for a "date" input
+
+*/
 class DateField extends React.Component{
     constructor(props){
         super(props);
@@ -31,11 +36,27 @@ class DateField extends React.Component{
         return(
             <label>
                 { this.props.text }
-                <input type="date" min={ this.min_string }></input>
+                <input type="date" class="form-control" min={ this.min_string } value={ this.props.value } onChange={ this.props.callback }></input>
             </label>
         );
     }
 
 }
 
-export {CheckBox, DateField};
+/* TimeField
+
+Contains fields for hours, minutes, and AM/PM
+
+*/
+class TimeField extends React.Component{
+    render(){
+        return(
+            <label>
+                { this.props.text }
+                <input type="time" class="form-control" value={ this.props.value } onChange={ this.props.callback } required></input>
+            </label>
+        )
+    }
+}
+
+export {CheckBox, DateField, TimeField};

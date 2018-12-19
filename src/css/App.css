@@ -53,6 +53,10 @@ input[type="checkbox"]{
   *overflow: hidden;
 }
 
+input[type="time"]{
+  color: black;
+}
+
 label{
   display: block;
   padding-left: 15px;

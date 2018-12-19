@@ -3,7 +3,7 @@ import React from 'react';
 import text from './image/text.png';
 import {TextField, TextArea} from './TextFields.js';
 import Notification from './Notification.js';
-import {CheckBox, DateField} from "./InputFields.js";
+import {CheckBox, DateField, TimeField} from "./InputFields.js";
 import './css/App.css';
 
 
@@ -76,7 +76,6 @@ class Recipient extends React.Component {
 This component is a basic wrapper used for displaying an image.
 
 */
-
 class Image extends React.Component {
   render(){
     return(
@@ -98,11 +97,15 @@ class SideBox extends React.Component {
     super(props);
     this.state = {
       // using 1/0 instead of true/false so we can use it to set field properties
-      repeated: 0
+      repeated: 0,
+      time: null,
+      date: null
     };
 
     
     this.onCheck = this.onCheck.bind(this);
+    this.onDate = this.onDate.bind(this);
+    this.onTime = this.onTime.bind(this);
   }
 
   onCheck(event){
@@ -112,13 +115,28 @@ class SideBox extends React.Component {
     });
   }
 
+  onDate(event){
+    this.setState({
+      date: event.target.value
+    });
+  }
+
+  onTime(event){
+    this.setState({
+      time: event.target.value
+    });
+  }
+
   render(){
     const repeated = this.state.repeated;
     const options = [{string: "Daily", key: 0}, {string: "Weekly", key: 1}, {string: "Monthly", key: 2}, {string: "Specific days", key: 3}];
+    const date = this.state.date;
+    const time = this.state.time;
 
     return(    
       <div class="box-basic box-side" id={ this.props.tid }>
-        <DateField text="Send reminder on:"></DateField>
+        <DateField text="Send reminder on:" callback={ this.onDate } value={ date }></DateField>
+        <TimeField text="Send at time:" callback={ this.onTime } value={ time }></TimeField>
         <CheckBox text="Repeat?" checked={ repeated } callback={ this.onCheck }></CheckBox>
         <SelectField disabled={ !repeated } elements={ options }></SelectField>
       </div>
