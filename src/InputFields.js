@@ -12,7 +12,8 @@ class IntervalField extends React.Component{
             <label>
                 { this.props.text }
                 <input type="checkbox" checked={ this.props.checked } onChange={ this.props.checkbox_callback }></input>
-                <SelectField id="interval-select" disabled={ !this.props.checked } elements={ this.props.elements }></SelectField>
+                <SelectField id="interval-select" disabled={ !this.props.checked } elements={ this.props.elements }
+                    onChange={ this.props.interval_callback }></SelectField>
             </label>
         )
     }

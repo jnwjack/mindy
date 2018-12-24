@@ -22,8 +22,9 @@ class Mindy extends React.Component{
             // using 1/0 instead of true/false so we can use it to set field properties
             repeated: 0,
             time: null,
-            date: null
-        }
+            date: null,
+            interval: "N/A"
+        };
 
         this.handleBodyChange = this.handleBodyChange.bind(this);
         this.handleNameChange = this.handleNameChange.bind(this);
@@ -38,6 +39,7 @@ class Mindy extends React.Component{
         this.handleCheck = this.handleCheck.bind(this);
         this.handleDate = this.handleDate.bind(this);
         this.handleTime = this.handleTime.bind(this);
+        this.handleInterval = this.handleInterval.bind(this);
     }
 
     notificationEnd(){
@@ -94,24 +96,50 @@ class Mindy extends React.Component{
     
     handleSend(event) {
         let xhr = new XMLHttpRequest();
-        let name = this.state.name;
 
+        let name = this.state.name;
         let recipients = this.state.recipients;
         let emails = recipients.map((element) => element.string);
         let body = this.state.body;
+        let repeats = this.state.repeated;
+        let interval = this.state.interval;
+        let time = this.state.time;
+        let date = this.state.date;
 
-        xhr.open("POST", "email.php", true);
+        xhr.open("POST", "schedule.php", true);
         xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
         xhr.onreadystatechange = this.reset;
-        xhr.send("name="+name+"&recipients="+emails+"&body="+body);
+        xhr.send("name="+name+"&recipients="+emails+"&body="+body+"&repeats="+repeats+"&interval="+interval+
+            "&time="+time+"&date="+date);
     }
 
 
     handleCheck(event){
         const repeated_previous = this.state.repeated;
-        this.setState({
-          repeated: !repeated_previous
-        });
+        if(repeated_previous){
+            this.setState({
+                repeated: 0,
+                interval: "N/A"
+            });
+        }
+        else{
+            this.setState({
+                repeated: 1,
+            });
+        }
+    }
+
+    handleInterval(event){
+        if(event.target.value === "Specific days"){
+            this.setState({
+                interval: "N/A"
+            });
+        }
+        else{
+            this.setState({
+                interval: event.target.value
+            });
+        }
     }
     
     handleDate(event){
@@ -139,7 +167,8 @@ class Mindy extends React.Component{
         const sidebox_callbacks = {
             "check" : this.handleCheck,
             "date"  : this.handleDate,
-            "time"  : this.handleTime
+            "time"  : this.handleTime,
+            "interval": this.handleInterval
         };
 
         const notificationActive = this.state.notificationActive;
@@ -155,12 +184,12 @@ class Mindy extends React.Component{
 
         return(
             <div>
-                <InfoBox></InfoBox>
+                <InfoBox id="box-left"></InfoBox>
                 <MainBox callbacks={ mainbox_callbacks } notificationActive={ notificationActive }
                     body={ body } name={ name } email={ email } recipients={ recipients }></MainBox>
                 <Notification active={ notificationActive } callback={ this.notificationEnd }></Notification>
                 <SideBox callbacks={ sidebox_callbacks } date={ date } repeated={ repeated }
-                     time={ time } tid="box-right"></SideBox>
+                    time={ time } tid="box-right"></SideBox>
             </div>
         );
     }

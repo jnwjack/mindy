@@ -31,7 +31,7 @@ class ListBox extends React.Component {
     let currentElement = this.state.selected;
     return(
       <div>
-        <SelectField id="listbox" maximum={ this.props.maximum } onChange={ this.handleSelect }elements = { this.props.elements }></SelectField>
+        <SelectField id="listbox" maximum={ this.props.maximum } onChange={ this.handleSelect } elements={ this.props.elements }></SelectField>
         <input type="button" class="btn btn-primary" id="listbox-button" value="Remove" onClick={ (e) => this.props.onDelete(currentElement, e) }></input>
       </div>
     );
@@ -87,7 +87,8 @@ class SideBox extends React.Component {
       <div class="box-basic box-side" id={ this.props.tid }>
         <DateField text="Send reminder on:" callback={ callbacks["date"] } value={ date }></DateField>
         <TimeField text="Send at time:" callback={ callbacks["time"] } value={ time }></TimeField>
-        <IntervalField text="Repeat?" checked={ repeated } checkbox_callback={ callbacks["check"] } elements={ options }></IntervalField>
+        <IntervalField text="Repeat?" checked={ repeated } checkbox_callback={ callbacks["check"] }
+          interval_callback={ callbacks["interval"] } elements={ options }></IntervalField>
       </div>
     );
   }
@@ -102,11 +103,13 @@ project and lies to the left side of the window.
 class InfoBox extends React.Component{
   render(){
     return(
-      <div class="box-basic box-side" id="box-left">
+      <div class="box-basic box-side" id={ this.props.id }>
       </div>
     )
   }
 }
+
+
 /* MainBox
 
 This component is placed in the center of the window and
