@@ -1,26 +1,9 @@
 import React from 'react';
-
 import text from './image/text.png';
-import {TextField, TextArea} from './TextFields.js';
-import Notification from './Notification.js';
-import {CheckBox, DateField, TimeField} from "./InputFields.js";
+import { TextField, TextArea, SelectField } from './TextFields.js';
+import { IntervalField, DateField, TimeField } from "./InputFields.js";
 import './css/App.css';
 
-
-/* SelectField
-
-This component is a wrapper for a <select> element
-
-*/
-class SelectField extends React.Component{
-  render(){
-    const elements = this.props.elements.map((element) => <option key={ element.key }>{ element.string }</option>);
-
-    return(
-      <select id={ this.props.id } class="form-control" size={ this.props.maximum } onChange={ this.props.onChange } disabled={ this.props.disabled }>{ elements }</select>
-    )
-  }
-}
 
 
 /* ListBox
@@ -93,166 +76,62 @@ This box lies to the right side of the page.
 
 */
 class SideBox extends React.Component {
-  constructor(props){
-    super(props);
-    this.state = {
-      // using 1/0 instead of true/false so we can use it to set field properties
-      repeated: 0,
-      time: null,
-      date: null
-    };
-
-    
-    this.onCheck = this.onCheck.bind(this);
-    this.onDate = this.onDate.bind(this);
-    this.onTime = this.onTime.bind(this);
-  }
-
-  onCheck(event){
-    const repeated_previous = this.state.repeated;
-    this.setState({
-      repeated: !repeated_previous
-    });
-  }
-
-  onDate(event){
-    this.setState({
-      date: event.target.value
-    });
-  }
-
-  onTime(event){
-    this.setState({
-      time: event.target.value
-    });
-  }
-
   render(){
-    const repeated = this.state.repeated;
+    const callbacks = this.props.callbacks;
+    const repeated = this.props.repeated;
     const options = [{string: "Daily", key: 0}, {string: "Weekly", key: 1}, {string: "Monthly", key: 2}, {string: "Specific days", key: 3}];
-    const date = this.state.date;
-    const time = this.state.time;
+    const date = this.props.date;
+    const time = this.props.time;
 
     return(    
       <div class="box-basic box-side" id={ this.props.tid }>
-        <DateField text="Send reminder on:" callback={ this.onDate } value={ date }></DateField>
-        <TimeField text="Send at time:" callback={ this.onTime } value={ time }></TimeField>
-        <CheckBox text="Repeat?" checked={ repeated } callback={ this.onCheck }></CheckBox>
-        <SelectField disabled={ !repeated } elements={ options }></SelectField>
+        <DateField text="Send reminder on:" callback={ callbacks["date"] } value={ date }></DateField>
+        <TimeField text="Send at time:" callback={ callbacks["time"] } value={ time }></TimeField>
+        <IntervalField text="Repeat?" checked={ repeated } checkbox_callback={ callbacks["check"] } elements={ options }></IntervalField>
       </div>
     );
   }
 }
 
+/* InfoBox
+
+This component is a box that holds information about this
+project and lies to the left side of the window.
+
+*/
+class InfoBox extends React.Component{
+  render(){
+    return(
+      <div class="box-basic box-side" id="box-left">
+      </div>
+    )
+  }
+}
 /* MainBox
 
-This component is the main container for all components (so far).
-It renders all components and maintains the state for all of the fields for the current email.
+This component is placed in the center of the window and
+renders components for the composition of the email.
 
 */
 class MainBox extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      name: "",
-      email: "",
-      recipients: [],
-      body: "",
-      count: 0,
-      notificationActive: false
-    };
-
-    this.handleBodyChange = this.handleBodyChange.bind(this);
-    this.handleNameChange = this.handleNameChange.bind(this);
-    this.handleEmailChange = this.handleEmailChange.bind(this);
-    this.handleAdd = this.handleAdd.bind(this);
-    this.handleSend = this.handleSend.bind(this);
-    this.handleDelete = this.handleDelete.bind(this);
-    this.reset = this.reset.bind(this);
-    this.notificationEnd = this.notificationEnd.bind(this);
-  }
-
-  notificationEnd(){
-    this.setState({
-      notificationActive: false
-    });
-  }
-
-  handleDelete(element, event){
-    const temp = this.state.recipients;
-    temp.splice(element, 1);
-    this.setState({
-      recipients: temp
-    });
-  }
-    
-  handleBodyChange(event){
-      this.setState({
-        body: event.target.value
-      });
-  }
-  handleNameChange(event) {
-    this.setState({
-      name: event.target.value
-    });
-  }
-
-  handleEmailChange(event) {
-    this.setState({
-      email: event.target.value
-    });
-  }
-
-  handleAdd(event) {
-    const temp = this.state.recipients;
-    let id = this.state.count;
-    temp.push({string: this.state.email, key: id});
-    this.setState({
-      email: "",
-      recipients: temp,
-      count: id+1
-    });
-  }
-
-  reset(){
-    this.setState({
-      email: "",
-      recipients: [],
-      body: "",
-      name: "",
-      notificationActive: true
-    });
-  }
- 
-  handleSend(event) {
-      let xhr = new XMLHttpRequest();
-      let name = this.state.name;
-
-      let recipients = this.state.recipients;
-      let emails = recipients.map((element) => element.string);
-      let body = this.state.body;
-
-      xhr.open("POST", "email.php", true);
-      xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-      xhr.onreadystatechange = this.reset;
-      xhr.send("name="+name+"&recipients="+emails+"&body="+body);
-  }
-
   render() {
-    let notificationActive = this.state.notificationActive;
+    const callbacks = this.props.callbacks;
+    const body = this.props.body;
+    const email = this.props.email;
+    const name = this.props.name;
+    const recipients = this.props.recipients;
 
     return(
       <div id="main" class="box-basic">
         <Image src={ text } alt="Mindy Text" id="image-text"></Image>
-        <TextField onChange={ this.handleNameChange } value={ this.state.name } default="Who is sending this reminder?" />
-        <Recipient value={ this.state.email } onChange={ this.handleEmailChange } onAdd={ this.handleAdd }/>
-        <ListBox elements={ this.state.recipients } maximum={ 7 } onDelete={ this.handleDelete }/>
-        <TextArea id="message" onChange={ this.handleBodyChange } value={ this.state.body } default="Enter email body here."/>
-        <input type="button" class="btn btn-primary" value="Send" onClick={ this.handleSend }/>
-        <Notification active={ notificationActive } callback={ this.notificationEnd }></Notification>
+        <TextField onChange={ callbacks["name"] } value={ name } default="Who is sending this reminder?" />
+        <Recipient value={ email } onChange={ callbacks["email"] } onAdd={ callbacks["add"] }/>
+        <ListBox elements={ recipients } maximum={ 7 } onDelete={ callbacks["delete"] }/>
+        <TextArea id="message" onChange={ callbacks["body"] } value={ body } default="Enter email body here."/>
+        <input type="button" class="btn btn-primary" value="Send" onClick={ callbacks["send"] }/>
       </div>
     )
   }
 }
 
-export {MainBox, SideBox};
+export { InfoBox, MainBox, SideBox };

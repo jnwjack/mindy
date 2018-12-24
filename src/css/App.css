@@ -33,7 +33,7 @@
 /* ----------------------------- */
 
 /* --------Buttons/Fields------- */
-input[type="text"], textarea, select{
+input[type="text"], input[type="date"], input[type="time"], textarea, select{
   margin-bottom: 5%;
   width: 75%;
 }
@@ -46,11 +46,16 @@ input[type="checkbox"]{
   width: 13px;
   height: 13px;
   padding: 0;
+
   margin:0;
+  margin-left: 15px;
+  margin-bottom: 4px;
+
   vertical-align: bottom;
   position: relative;
   top: -1px;
   *overflow: hidden;
+
 }
 
 input[type="time"]{
@@ -62,6 +67,8 @@ label{
   padding-left: 15px;
   text-indent: -15px;
   color: #d7c316;
+  font-family: Franklin Gothic Medium,Franklin Gothic,ITC Franklin Gothic,Arial,sans-serif; 
+  font-size: larger;
 }
 
 input[type="date"]{
@@ -98,11 +105,8 @@ input[type="date"]{
   float: right;
 }
 
-.checkbox-wrapper{
-  display: flex;
-  justify-content: space-between;
-  width: 60%;
-  margin: .5rem;
+#interval-select{
+  margin-top: 2%;
 }
 /* ----------------------------- */
 
@@ -148,9 +152,10 @@ input[type="date"]{
 }
 
 .notification-block {
-  position: absolute;
+  position: fixed;
   width: 30%;
   top: 0%;
+  left: 35%;
 
   display: table;
   height: 50px;
@@ -163,7 +168,7 @@ input[type="date"]{
   display: table-cell;
   vertical-align: middle;
   text-align: center;
-  font-family: fantasy;
+  font-family: Franklin Gothic Medium,Franklin Gothic,ITC Franklin Gothic,Arial,sans-serif; 
   font-size: 20px;
 }
 

@@ -1,18 +1,20 @@
 import React from 'react';
+import { SelectField } from "./TextFields.js";
 
 /* CheckBox
 
 This component is a checbox with some accompanying text.
 
 */
-class CheckBox extends React.Component{
+class IntervalField extends React.Component{
     render(){
         return(
             <label>
                 { this.props.text }
-                <input type="checkbox" checked={ this.props.checked } onChange={ this.props.callback }></input>
+                <input type="checkbox" checked={ this.props.checked } onChange={ this.props.checkbox_callback }></input>
+                <SelectField id="interval-select" disabled={ !this.props.checked } elements={ this.props.elements }></SelectField>
             </label>
-        );
+        )
     }
 }
 
@@ -59,4 +61,4 @@ class TimeField extends React.Component{
     }
 }
 
-export {CheckBox, DateField, TimeField};
+export { IntervalField, DateField, TimeField };

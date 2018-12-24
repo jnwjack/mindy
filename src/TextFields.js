@@ -33,4 +33,19 @@ class TextArea extends React.Component {
   }
 }
 
-export {TextField, TextArea};
+/* SelectField
+
+This component is a wrapper for a <select> element
+
+*/
+class SelectField extends React.Component{
+  render(){
+    const elements = this.props.elements.map((element) => <option key={ element.key }>{ element.string }</option>);
+
+    return(
+      <select id={ this.props.id } class="form-control" size={ this.props.maximum } onChange={ this.props.onChange } disabled={ this.props.disabled }>{ elements }</select>
+    )
+  }
+}
+
+export { TextField, TextArea, SelectField };
