@@ -10,13 +10,13 @@ else{
 $datetime = $_POST["date"] . " " . $_POST["time"] . ":00";
 
 
-// compare first 16 characters of date, don't care about seconds.
+// compare first 16 characters of date, don't care about$current_datetime = date("Y-m-d H:i:s"); seconds.
 $current_datetime = date("Y-m-d H:i:s");
 echo $current_datetime;
 echo strncmp($current_datetime, $datetime, 16);
 
-$username = "###";
-$password = "###";
+$username = "root";
+$password = "swamp0127";
 
 $db = new PDO("mysql:host=localhost;dbname=mindy", $username, $password,
         array(PDO::ATTR_EMULATE_PREPARES => false, PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION));
