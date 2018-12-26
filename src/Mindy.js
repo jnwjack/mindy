@@ -183,7 +183,7 @@ class Mindy extends React.Component{
         const repeated = this.state.repeated;
 
         return(
-            <div>
+            <div id="global-wrapper">
                 <InfoBox id="box-left"></InfoBox>
                 <MainBox callbacks={ mainbox_callbacks } notificationActive={ notificationActive }
                     body={ body } name={ name } email={ email } recipients={ recipients }></MainBox>

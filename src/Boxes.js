@@ -62,9 +62,7 @@ This component is a basic wrapper used for displaying an image.
 class Image extends React.Component {
   render(){
     return(
-      <div class="image">
-        <img src={ this.props.src } alt={ this.props.alt } id={ this.props.id }></img>
-      </div>
+      <img src={ this.props.src } alt={ this.props.alt } class="image" id={ this.props.id }></img>
     );
   }
 }
@@ -125,13 +123,15 @@ class MainBox extends React.Component {
     const recipients = this.props.recipients;
 
     return(
-      <div id="main" class="box-basic">
-        <Image src={ text } alt="Mindy Text" id="image-text"></Image>
-        <TextField onChange={ callbacks["name"] } value={ name } default="Who is sending this reminder?" />
-        <Recipient value={ email } onChange={ callbacks["email"] } onAdd={ callbacks["add"] }/>
-        <ListBox elements={ recipients } maximum={ 7 } onDelete={ callbacks["delete"] }/>
-        <TextArea id="message" onChange={ callbacks["body"] } value={ body } default="Enter email body here."/>
-        <input type="button" class="btn btn-primary" value="Send" onClick={ callbacks["send"] }/>
+      <div id="main-wrapper">
+        <div id ="main" class="box-basic">
+          <Image src={ text } alt="Mindy Text" id="image-text"></Image>
+          <TextField onChange={ callbacks["name"] } value={ name } default="Who is sending this reminder?" />
+          <Recipient value={ email } onChange={ callbacks["email"] } onAdd={ callbacks["add"] }/>
+          <ListBox elements={ recipients } maximum={ 7 } onDelete={ callbacks["delete"] }/>
+          <TextArea id="message" onChange={ callbacks["body"] } value={ body } default="Enter email body here."/>
+          <input type="button" class="btn btn-primary" value="Send" onClick={ callbacks["send"] }/>
+        </div>
       </div>
     )
   }

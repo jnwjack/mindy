@@ -1,3 +1,9 @@
+/* -------Global Styles ------- */
+body{
+  font-family: Franklin Gothic Medium,Franklin Gothic,ITC Franklin Gothic,Arial,sans-serif;
+  min-width: 1200px;
+}
+
 /* -----------Boxes------------ */
 .box-basic{
   border: thick solid #ccccff;
@@ -9,6 +15,8 @@
   width: 20%;
   margin-top: 10%;
   padding: 2%;
+
+  min-width: 200px;
 }
 
 /* with margins, border auto-collapses, so we use that, not padding */
@@ -21,14 +29,24 @@
   margin-left: 5%;
 }
 
-#main {
-  width: 40%;
-  margin-left: 5%;
-  margin-right: 5%;
-  margin-top: 5%;
+#main{
+  width: 80%;
+  margin-top: 10%;
+  padding: 8%;
+  min-width: 450px;
+}
+
+#main-wrapper{
+  align-items: center;
+  display: flex;
+  justify-content: center;
+
   float: left;
 
-  padding: 4%;
+  position: relative;
+  width: 50%;
+  min-width: 450px;
+  /*border: thick solid red;*/
 }
 /* ----------------------------- */
 
@@ -67,8 +85,9 @@ label{
   padding-left: 15px;
   text-indent: -15px;
   color: #d7c316;
-  font-family: Franklin Gothic Medium,Franklin Gothic,ITC Franklin Gothic,Arial,sans-serif; 
   font-size: larger;
+
+  max-width: text;
 }
 
 input[type="date"]{
@@ -98,6 +117,7 @@ input[type="date"]{
 }
 
 #recipient-text {
+  width: 75%;
   float: left;
 }
 
@@ -118,15 +138,18 @@ input[type="date"]{
 }
 
 #image-text{
-  /*image position is relative to its first ancestor element (global window)*/
   position: absolute;
 
-  max-width: 15%;
-  max-height: 15%;
+  max-width: 23%;
+  max-height: 20%;
+
+  min-height: 5px;
+  min-width: 5px;
+
   margin-top: 2.5%;
 
-  left: 35%;
-  top: 0px;
+  left: 20%;
+  top: 3.5%;
 }
 /* ----------------------------- */
 
@@ -168,7 +191,6 @@ input[type="date"]{
   display: table-cell;
   vertical-align: middle;
   text-align: center;
-  font-family: Franklin Gothic Medium,Franklin Gothic,ITC Franklin Gothic,Arial,sans-serif; 
   font-size: 20px;
 }
 
