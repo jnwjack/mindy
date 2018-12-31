@@ -80,13 +80,15 @@ class SideBox extends React.Component {
     const options = [{string: "Daily", key: 0}, {string: "Weekly", key: 1}, {string: "Monthly", key: 2}, {string: "Specific days", key: 3}];
     const date = this.props.date;
     const time = this.props.time;
+    const repeats = this.props.repeats;
 
     return(    
       <div class="box-basic box-side" id={ this.props.tid }>
         <DateField text="Send reminder on:" callback={ callbacks["date"] } value={ date }></DateField>
         <TimeField text="Send at time:" callback={ callbacks["time"] } value={ time }></TimeField>
         <IntervalField text="Repeat?" checked={ repeated } checkbox_callback={ callbacks["check"] }
-          interval_callback={ callbacks["interval"] } elements={ options }></IntervalField>
+          interval_callback={ callbacks["interval"] } max={ "100" } elements={ options } repeats_callback={ callbacks["repeats"]}
+          repeat_default="How many times? (Max: 100)" repeats={ repeats }></IntervalField>
       </div>
     );
   }
@@ -102,6 +104,9 @@ class InfoBox extends React.Component{
   render(){
     return(
       <div class="box-basic box-side" id={ this.props.id }>
+        <p>Mindy is a simple email-based reminder service.
+          It is written in ReactJS and uses the LAMP stack.
+        </p>
       </div>
     )
   }
@@ -137,4 +142,4 @@ class MainBox extends React.Component {
   }
 }
 
-export { InfoBox, MainBox, SideBox };
+export { InfoBox, MainBox, SideBox, Image };

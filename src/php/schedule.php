@@ -26,7 +26,8 @@ $stmt->bindValue(":name", $_POST["name"], PDO::PARAM_STR);
 $stmt->bindValue(":recipients", $recipients, PDO::PARAM_LOB);
 $stmt->bindValue(":body", $_POST["body"], PDO::PARAM_STR);
 $stmt->bindValue(":date", $datetime, PDO::PARAM_STR);
-$stmt->bindValue(":repeats", $repeats, PDO::PARAM_INT);
+$stmt->bindValue(":repeats", $_POST["repeats"], PDO::PARAM_INT);
 $stmt->bindValue(":repeat_interval", $_POST["interval"], PDO::PARAM_STR);
 $stmt->execute();
+
 ?>

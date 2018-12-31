@@ -14,6 +14,8 @@ class IntervalField extends React.Component{
                 <input type="checkbox" checked={ this.props.checked } onChange={ this.props.checkbox_callback }></input>
                 <SelectField id="interval-select" disabled={ !this.props.checked } elements={ this.props.elements }
                     onChange={ this.props.interval_callback }></SelectField>
+                <input type="number" class="form-control" min="0" max={ this.props.max } disabled={ !this.props.checked } 
+                    placeholder={ this.props.repeat_default } onChange={ this.props.repeats_callback } value={ this.props.repeats }></input>
             </label>
         )
     }

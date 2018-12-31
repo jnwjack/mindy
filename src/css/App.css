@@ -4,6 +4,12 @@ body{
   min-width: 1200px;
 }
 
+p{
+  font-size: larger;
+  word-wrap: normal;
+}
+
+
 /* -----------Boxes------------ */
 .box-basic{
   border: thick solid #ccccff;
@@ -15,7 +21,6 @@ body{
   width: 20%;
   margin-top: 10%;
   padding: 2%;
-
   min-width: 200px;
 }
 
@@ -27,6 +32,7 @@ body{
 
 #box-left{
   margin-left: 5%;
+  background-color: #F4D0F8
 }
 
 #main{
@@ -51,9 +57,15 @@ body{
 /* ----------------------------- */
 
 /* --------Buttons/Fields------- */
-input[type="text"], input[type="date"], input[type="time"], textarea, select{
+input[type="text"], input[type="date"], input[type="time"], textarea{
   margin-bottom: 5%;
   width: 75%;
+}
+
+select{
+  width: 75%;
+  margin-bottom: 5%;
+  height: 200px;
 }
 
 input[type="button"]{
@@ -95,7 +107,10 @@ input[type="date"]{
 }
 
 #listbox {
+  display: block;
   width: 75%;
+  /* have to set height in pixels or else it will change height when option added */
+  height: 125px;
   float: left;
 }
 
@@ -151,6 +166,16 @@ input[type="date"]{
   left: 20%;
   top: 3.5%;
 }
+
+#image-dog{
+  position: fixed;
+
+  top: 80%;
+  left: 3%;
+
+  max-width: 20%;
+  max-height: 20%;
+}
 /* ----------------------------- */
 
 
@@ -195,3 +220,25 @@ input[type="date"]{
 }
 
 /* ----------------------------- */
+
+/* ---------Triangles----------- */
+.triangle-basic{
+  position: fixed;
+
+  width: 0;
+  height: 0;
+  z-index: 0;
+
+  top: 40%;
+
+  border: 262px solid;
+}
+
+.triangle-left{
+  border-color: #fff #fff #F4D0F8 #F4D0F8;
+}
+
+.triangle-right{
+  border-color: #fff #F4D0F8 #F4D0F8 #fff;
+  right: 0%;
+}

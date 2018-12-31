@@ -1,6 +1,7 @@
 import React from "react";
-import { InfoBox, MainBox, SideBox } from "./Boxes";
+import { Image, InfoBox, MainBox, SideBox } from "./Boxes";
 import Notification from './Notification.js';
+import dog from "./image/dog.png";
 
 /* Mindy
 
@@ -21,9 +22,10 @@ class Mindy extends React.Component{
 
             // using 1/0 instead of true/false so we can use it to set field properties
             repeated: 0,
-            time: null,
-            date: null,
-            interval: "N/A"
+            repeats: "",
+            time: "",
+            date: "",
+            interval: "Daily"
         };
 
         this.handleBodyChange = this.handleBodyChange.bind(this);
@@ -40,6 +42,7 @@ class Mindy extends React.Component{
         this.handleDate = this.handleDate.bind(this);
         this.handleTime = this.handleTime.bind(this);
         this.handleInterval = this.handleInterval.bind(this);
+        this.handleRepeats = this.handleRepeats.bind(this);
     }
 
     notificationEnd(){
@@ -90,7 +93,12 @@ class Mindy extends React.Component{
             recipients: [],
             body: "",
             name: "",
-            notificationActive: true
+            notificationActive: true,
+            repeated: 0,
+            time: "",
+            date: "",
+            interval: "Daily",
+            repeats: ""
         });
     }
     
@@ -101,12 +109,20 @@ class Mindy extends React.Component{
         let recipients = this.state.recipients;
         let emails = recipients.map((element) => element.string);
         let body = this.state.body;
-        let repeats = this.state.repeated;
+        let repeated = this.state.repeated;
         let interval = this.state.interval;
         let time = this.state.time;
         let date = this.state.date;
 
-        xhr.open("POST", "schedule.php", true);
+        let repeats;
+        if(repeated){
+            repeats = this.state.repeats;
+        }
+        else{
+            repeats = 0;
+        }
+
+        xhr.open("POST", "schedule.php", true); 
         xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
         xhr.onreadystatechange = this.reset;
         xhr.send("name="+name+"&recipients="+emails+"&body="+body+"&repeats="+repeats+"&interval="+interval+
@@ -154,6 +170,14 @@ class Mindy extends React.Component{
         });
     }
 
+    handleRepeats(event){
+        if(event.target.value <= 100 && event.target.value >= 0){
+            this.setState({
+                repeats: event.target.value
+            });
+        }
+    }
+
     render(){
         const mainbox_callbacks = {
             "delete": this.handleDelete,
@@ -165,10 +189,11 @@ class Mindy extends React.Component{
         };
 
         const sidebox_callbacks = {
-            "check" : this.handleCheck,
-            "date"  : this.handleDate,
-            "time"  : this.handleTime,
-            "interval": this.handleInterval
+            "check"   : this.handleCheck,
+            "date"    : this.handleDate,
+            "time"    : this.handleTime,
+            "interval": this.handleInterval,
+            "repeats" : this.handleRepeats  
         };
 
         const notificationActive = this.state.notificationActive;
@@ -181,15 +206,20 @@ class Mindy extends React.Component{
         const date = this.state.date;
         const time = this.state.time;
         const repeated = this.state.repeated;
+        const repeats = this.state.repeats;
 
         return(
-            <div id="global-wrapper">
-                <InfoBox id="box-left"></InfoBox>
-                <MainBox callbacks={ mainbox_callbacks } notificationActive={ notificationActive }
-                    body={ body } name={ name } email={ email } recipients={ recipients }></MainBox>
-                <Notification active={ notificationActive } callback={ this.notificationEnd }></Notification>
-                <SideBox callbacks={ sidebox_callbacks } date={ date } repeated={ repeated }
-                    time={ time } tid="box-right"></SideBox>
+            <div>
+                {/*<div class="triangle-basic triangle-left"></div>
+                <Image src={ dog } alt="Logo" id="image-dog"></Image> */}
+                <div id="global-wrapper">
+                    <InfoBox id="box-left"></InfoBox>
+                    <MainBox callbacks={ mainbox_callbacks } notificationActive={ notificationActive }
+                        body={ body } name={ name } email={ email } recipients={ recipients }></MainBox>
+                    <Notification active={ notificationActive } text="Reminder scheduled!" callback={ this.notificationEnd }></Notification>
+                    <SideBox callbacks={ sidebox_callbacks } date={ date } repeated={ repeated }
+                        repeats={ repeats } time={ time } tid="box-right"></SideBox>
+                </div>
             </div>
         );
     }

@@ -25,7 +25,7 @@ class Notification extends React.Component {
     render(){
       let element;
       if(this.props.active) {
-        element = <NotificationBanner value="Email sent!" key={ 1 }></NotificationBanner>
+        element = <NotificationBanner value={ this.props.text } key={ 1 }></NotificationBanner>
         this.props.callback()
       }
       else {
