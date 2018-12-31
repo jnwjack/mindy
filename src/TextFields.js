@@ -9,7 +9,7 @@ This component is a basic wrapper for a text field input.
 class TextField extends React.Component {  
   render() {
     return(
-      <input type="text" class="form-control" id={ this.props.id } onFocus={ this.handleFocus }
+      <input type="text" id={ this.props.id } onFocus={ this.handleFocus }
         placeholder={ this.props.default } onChange={ this.props.onChange } value={ this.props.value }/>
     );
   }
