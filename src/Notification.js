@@ -1,20 +1,4 @@
 import React from 'react';
-import { CSSTransitionGroup } from 'react-transition-group';
-
-/* NotificationBanner
-
-This component is for the banner used by notifictaion
-
-*/
-class NotificationBanner extends React.Component {
-    render(){
-        return( 
-            <div class="notification-block" key={ this.props.key }>
-                <div class="notification-text">{ this.props.value }</div>
-            </div>
-        );
-    }
-}
 
 /* Notification
 
@@ -23,25 +7,22 @@ This component displays a banner that fades in and fades out when 'active'
 */
 class Notification extends React.Component {
     render(){
-      let element;
-      if(this.props.active) {
-        element = <NotificationBanner value={ this.props.text } key={ 1 }></NotificationBanner>
-        this.props.callback()
-      }
-      else {
-        element = <div key={ 0 }></div>;      
-      }
-      return(
-          <CSSTransitionGroup
-            transitionName="notification"
-            transitionEnter={ true }
-            transitionLeave={ true }
-            transitionEnterTimeout={ 1500 }
-            transitionLeaveTimeout={ 1500 }>
-            { element }
-          </CSSTransitionGroup>
-      )
-    }
-  }
+        const active = this.props.active;
+        let active_class;
+        if(active){
+            active_class = "notification-block notification-active";
+            setTimeout(this.props.callback, 1000);
+        }
+        else{
+            active_class = "notification-block notification-inactive";
+        }
 
-  export default Notification
+        return(
+            <div class={active_class}>
+                <div class="notification-text">{ this.props.text }</div>
+            </div>
+        )
+    }
+}
+
+  export default Notification;
