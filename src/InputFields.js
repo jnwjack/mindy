@@ -14,7 +14,7 @@ class IntervalField extends React.Component{
                 <input type="checkbox" checked={ this.props.checked } onChange={ this.props.checkbox_callback }></input>
                 <SelectField id="interval-select" disabled={ !this.props.checked } elements={ this.props.elements }
                     onChange={ this.props.interval_callback }></SelectField>
-                <input type="number" class="form-control" min="0" max={ this.props.max } disabled={ !this.props.checked } 
+                <input type="number" class="text-basic" min="0" max={ this.props.max } disabled={ !this.props.checked } 
                     placeholder={ this.props.repeat_default } onChange={ this.props.repeats_callback } value={ this.props.repeats }></input>
             </label>
         )
@@ -41,7 +41,7 @@ class DateField extends React.Component{
         return(
             <label>
                 { this.props.text }
-                <input type="date" class="form-control" min={ this.min_string } value={ this.props.value } onChange={ this.props.callback }></input>
+                <input type="date" class="text-basic" min={ this.min_string } value={ this.props.value } onChange={ this.props.callback }></input>
             </label>
         );
     }
@@ -58,7 +58,7 @@ class TimeField extends React.Component{
         return(
             <label>
                 { this.props.text }
-                <input type="time" class="form-control" value={ this.props.value } onChange={ this.props.callback } required></input>
+                <input type="time" class="text-basic" value={ this.props.value } onChange={ this.props.callback } required></input>
             </label>
         )
     }

@@ -88,7 +88,7 @@ class SideBox extends React.Component {
         <TimeField text="Send at time:" callback={ callbacks["time"] } value={ time }></TimeField>
         <IntervalField text="Repeat?" checked={ repeated } checkbox_callback={ callbacks["check"] }
           interval_callback={ callbacks["interval"] } max={ "100" } elements={ options } repeats_callback={ callbacks["repeats"]}
-          repeat_default="How many times? (Max: 100)" repeats={ repeats }></IntervalField>
+          repeat_default="How many times?" repeats={ repeats }></IntervalField>
       </div>
     );
   }

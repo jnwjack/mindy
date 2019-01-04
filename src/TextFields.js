@@ -9,7 +9,7 @@ This component is a basic wrapper for a text field input.
 class TextField extends React.Component {  
   render() {
     return(
-      <input type="text" id={ this.props.id } onFocus={ this.handleFocus }
+      <input type="text" class="text-basic" id={ this.props.id } onFocus={ this.handleFocus }
         placeholder={ this.props.default } onChange={ this.props.onChange } value={ this.props.value }/>
     );
   }
@@ -23,7 +23,7 @@ This component is a basic wrapper for a <textarea> element.
 class TextArea extends React.Component {
   render() {
     return(
-      <textarea class="form-control" id={ this.props.id } onChange={ this.props.onChange }
+      <textarea id={ this.props.id } onChange={ this.props.onChange }
         placeholder={ this.props.default }value={ this.props.value}/>
     );
   }
@@ -39,7 +39,7 @@ class SelectField extends React.Component{
     const elements = this.props.elements.map((element) => <option key={ element.key }>{ element.string }</option>);
 
     return(
-      <select id={ this.props.id } class="form-control" size={ this.props.maximum } onChange={ this.props.onChange } disabled={ this.props.disabled }>{ elements }</select>
+      <select id={ this.props.id } size={ this.props.maximum } onChange={ this.props.onChange } disabled={ this.props.disabled }>{ elements }</select>
     )
   }
 }

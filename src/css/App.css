@@ -37,14 +37,14 @@ p{
 
 #main{
   width: 80%;
-  margin-top: 10%;
+  margin-top: 90px;
   padding: 8%;
   min-width: 450px;
 }
 
 #main-wrapper{
-  align-items: center;
   display: flex;
+  align-items: center;
   justify-content: center;
 
   float: left;
@@ -52,39 +52,81 @@ p{
   position: relative;
   width: 50%;
   min-width: 450px;
-  /*border: thick solid red;*/
 }
 /* ----------------------------- */
 
 /* --------Buttons/Fields------- */
-input[type="text"], textarea{
+.text-basic{
+  color: black;
+  width: 75%;
   border-radius: 15px;
-  background: white;
   border: 2px solid;
   border-color: rgb(216, 205, 205);
-  padding-left: 20px;
+  padding-left: 15px;
+  padding-right: 10px;
   height: 30px;
-  font-size: larger;
+  margin-bottom: 5%;
   transition: height 0.2s, border-radius 0.5s;
 }
 
-input[type="text"]:focus, textarea:focus{
+.text-basic:focus{
+  /*backface-visibility: hidden;
+  transition: 0.5s;
+  transform: scale(1.2);*/
   box-shadow: 0 0 2px 2px #d7c316;
   border-color: white;
+  outline: none;
   border-radius: 0px;
   height: 50px;
   transition: height 0.4s, border-radius 1s;
 }
 
-input[type="text"], input[type="date"], input[type="time"], textarea{
+input[type="text"]{
+  font-size: 18px;
+}
+
+input[type="date"], input[type="time"], input[type="number"]{
+  font-size: 15px;
+}
+
+textarea{
+  width: 100%;
   margin-bottom: 5%;
-  width: 75%;
+  border-radius: 15px;
+  padding-top: 10px;
+  padding-left: 15px;
+  background: white;
+  border: 2px solid;
+  border-color: rgb(216, 205, 205);
+  transition: border-radius 0.5s;
+}
+
+textarea:focus{
+  box-shadow: 0 0 2px 2px #d7c316;
+  border-color: white;
+  outline: none;
+  border-radius: 0px;
+  transition: border-radius 1s;
 }
 
 select{
   width: 75%;
   margin-bottom: 5%;
-  height: 200px;
+  color: black;
+  border-radius: 5px;
+  border: 2px solid;
+  border-color: rgb(216, 205, 205);
+  font-size: 15px;
+}
+
+select:focus{
+  box-shadow: 0 0 2px 2px #d7c316;
+  border-color: white;
+  outline: none;
+}
+
+select:enabled, text-basic:enabled{
+  background: white;
 }
 
 input[type="button"]{
@@ -107,10 +149,6 @@ input[type="checkbox"]{
 
 }
 
-input[type="time"]{
-  color: black;
-}
-
 label{
   display: block;
   padding-left: 15px;
@@ -121,16 +159,13 @@ label{
   max-width: text;
 }
 
-input[type="date"]{
-  color: black;
-}
-
 #listbox {
   display: block;
   width: 75%;
   /* have to set height in pixels or else it will change height when option added */
   height: 125px;
   float: left;
+  overflow-y: auto;
 }
 
 #listbox-button{
@@ -174,16 +209,15 @@ input[type="date"]{
 #image-text{
   position: absolute;
 
-  max-width: 23%;
-  max-height: 20%;
+  max-width: 30%;
+  max-height: 25%;
 
   min-height: 5px;
   min-width: 5px;
 
-  margin-top: 2.5%;
 
   left: 20%;
-  top: 3.5%;
+  top: 45px;
 }
 
 #image-dog{
